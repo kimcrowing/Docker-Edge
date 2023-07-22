@@ -2,7 +2,7 @@
 FROM --platform=$TARGETPLATFORM golang:alpine AS build
 
 # 安装依赖
-RUN apk add --no-cache libgcc libstdc++ glibc nss icu-libs zlib
+RUN apk add --no-cache libgcc libstdc++ nss icu-libs zlib
 
 # 下载 Edge
 ARG EDGE_VERSION=97.0.1072.69
