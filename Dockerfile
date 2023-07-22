@@ -3,7 +3,8 @@ FROM --platform=$TARGETPLATFORM golang:alpine AS build
 
 # 安装兼容层
 RUN apk add --no-cache libgcc libstdc++ zlib \
-    && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
+    && wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub 
+RUN apk del alpine-baselayout-data \
     && wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.23-r3/glibc-2.23-r3.apk \
     && apk add glibc-2.23-r3.apk
 
