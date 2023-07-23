@@ -1,20 +1,54 @@
-# 基于 alpine 镜像
-FROM alpine:3.16
+# 基础镜像
+FROM arm64v8/debian:buster
+
+# 设置工作目录
+WORKDIR /opt/microsoft/edge
 
 # 安装依赖
-RUN apk add --no-cache curl tar 
+RUN apt-get update && apt-get install -y \
+    gconf-service \
+    libasound2 \
+    libatk1.0-0 \
+    libc6 \
+    libcairo2 \ 
+    libcups2 \
+    libdbus-1-3 \
+    libexpat1 \
+    libfontconfig1 \
+    libgcc1 \
+    libgconf-2-4 \
+    libgdk-pixbuf2.0-0 \
+    libglib2.0-0 \
+    libgtk-3-0 \
+    libnspr4 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libstdc++6 \
+    libx11-6 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxi6 \
+    libxrandr2 \
+    libxrender1 \
+    libxss1 \
+    libxtst6 \
+    lsb-release \
+    wget
 
-# 下载 Dev 版Edge(替换为其他版本也可以)  
-RUN curl -L https://packages.microsoft.com/yumrepos/edge-dev/microsoft-edge-dev-96.0.1054.57-1.x86_64.rpm -o edge.rpm
-
-# 解包
-RUN rpm2cpio edge.rpm | cpio -idmv
+# 安装 Edge ARM64
+RUN wget https://msedge.sf.dl.delivery.mp.microsoft.com/filestreamingservice/files/c71262f7-9fb0-4eaa-9a12-d097ce632fac/MicrosoftEdgeStableARM64.deb
+RUN dpkg -i MicrosoftEdgeStableARM64.deb
 
 # 清理
-RUN rm edge.rpm
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# 暴露端口  
-EXPOSE 8080
+# 暴露端口
+EXPOSE 8080 
 
-# 启动Edge
-CMD ["./opt/microsoft/msedge-dev/msedge"]
+# 设置启动命令
+CMD ["microsoft-edge-stable", "--remote-debugging-port=8080"]
