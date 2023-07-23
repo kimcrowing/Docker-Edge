@@ -8,7 +8,7 @@ RUN apk update && apk upgrade
 RUN apk add wget tar
 
 # 下载 edge 浏览器的 Linux 版本
-RUN wget https://go.microsoft.com/fwlink/?linkid=2158053 -O microsoft-edge-dev.tar.gz
+RUN wget https://go.microsoft.com/fwlink/?linkid=2186102 -O microsoft-edge-dev.tar.gz
 
 # 解压 edge 浏览器的压缩包
 RUN tar -xvf microsoft-edge-dev.tar.gz
