@@ -28,4 +28,4 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: kimcrowing/edge:latest # 你的镜像名和标签
-          platforms: linux/arm64 # 你的平台和架构
+          platforms: linux/amd64,linux/arm64,linux/arm/v7 # 你的平台和架构
